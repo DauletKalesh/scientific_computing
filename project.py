@@ -52,6 +52,13 @@ class Newton_method:
             self.x.append(self.x_n)
         self.x = np.array(self.x)
     
+    def __str__(self):
+
+        self.method()
+
+        print(f" After {self.iteration} iterations:")
+        print(f"Solution is: x* = {self.x_n} p* = {self.function(self.x_n)}")
+
     def plot(self):
         if self.x_n.size ==1:
             fig, ax = plt.subplots(figsize=(8, 6))

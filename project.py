@@ -15,7 +15,7 @@ class Newton_method:
         self.t = t
         self.e = e
         self.x = [self.x_n]
-        
+
     gradient = lambda self, x_n: nd.Gradient(self.function)(x_n)
 
     hessian = lambda self, x_n: nd.Hessian(self.function)(x_n)
@@ -28,6 +28,16 @@ class Newton_method:
 
     def square_lambda(self, x_n):
         return self.gradient(x_n).T.dot(self.inverse(x_n).dot(self.gradient(x_n)))
+    
+    def line_searching(self, x_n, t):
+        i = 0
+        a = 1/3; b = 1/2
+        lmbd = self.square_lambda(x_n)
+        delta =  -self.inverse(x_n).dot(self.gradient(x_n))
+        while not self.function(x_n + t * delta) < self.function(x_n) + a *t * lmbd and i < 100:
+            t *= b
+            i += 1
+        return t
     
     def method(self):
         lmbd = self.square_lambda(self.x_n)

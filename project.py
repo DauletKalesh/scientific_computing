@@ -32,27 +32,34 @@ class Newton_method:
     def square_lambda(self, x_n):
         return self.gradient(x_n).T.dot(self.inverse(x_n).dot(self.gradient(x_n)))
     
-    def line_searching(self, x_n, t):
+    def line_searching(self, x_n, lmbd, delta, t):
         i = 0
         a = 1/3; b = 1/2
-        lmbd = self.square_lambda(x_n)
-        delta =  -self.inverse(x_n).dot(self.gradient(x_n))
-        while not self.function(x_n + t * delta) < self.function(x_n) + a *t * lmbd and i < 100:
+        # lmbd = self.square_lambda(x_n)
+        # delta =  -self.inverse(x_n).dot(self.gradient(x_n))
+        while not self.function(x_n + t * delta)\
+              < self.function(x_n) + a *t * lmbd and i < 100:
             t *= b
             i += 1
         return t
     
     def method(self):
-        lmbd = self.square_lambda(self.x_n)
-        while not 0.5 * lmbd <= self.e and self.iteration < 1000:
-            self.t = self.line_searching(self.x_n, self.t)
+        
+        while not 0.5 * (lmbd:=self.square_lambda(self.x_n)) <= self.e\
+              and self.iteration < 1000:
+            
             delta = -self.inverse(self.x_n).dot(self.gradient(self.x_n))
+            self.t = self.line_searching(self.x_n, lmbd, delta, self.t)
+
             self.x_n = self.x_n + self.t * delta
-            lmbd = self.square_lambda(self.x_n)
+            # lmbd = self.square_lambda(self.x_n)
+            
             self.iteration += 1
             print(f"{self.iteration})  t = {self.t}  x = {self.x_n}  f(x) = {self.function(self.x_n)} ")
+            
             self.t = self.init_t
             self.x.append(self.x_n)
+
         self.x = np.array(self.x)
     
     def __str__(self):
@@ -123,17 +130,17 @@ class Newton_method:
             fig.show()
 
 if __name__=="__main__":
-    # solution = Newton_method(
-    #     function = lambda x: sin(x[0]) + x[0]**4, 
-    #     x_n = np.array([1])
-    # )
-    # solution.plot()
-    # plt.show()
-
     solution = Newton_method(
-        function = lambda x: x[0]**2 - 4, 
-        x_n = np.array([3])
+        function = lambda x: sin(x[0]) + x[0]**4, 
+        x_n = np.array([1])
     )
-    solution.test(exact_x=[0])
     solution.plot()
     plt.show()
+
+    # solution = Newton_method(
+    #     function = lambda x: x[0]**2 - 4, 
+    #     x_n = np.array([3])
+    # )
+    # solution.test(exact_x=[0])
+    # solution.plot()
+    # plt.show()

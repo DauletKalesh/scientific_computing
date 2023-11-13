@@ -15,6 +15,7 @@ class Newton_method:
         self.t = t
         self.e = e
         self.x = [self.x_n]
+        
     gradient = lambda self, x_n: nd.Gradient(self.function)(x_n)
 
     hessian = lambda self, x_n: nd.Hessian(self.function)(x_n)
@@ -25,6 +26,9 @@ class Newton_method:
         except:
             return inv(self.hessian(x_n) + np.identity(x_n.size)) if len(x_n)!=1 else 1/self.hessian(x_n)[0]
 
+    def square_lambda(self, x_n):
+        return self.gradient(x_n).T.dot(self.inverse(x_n).dot(self.gradient(x_n)))
+    
     def method(self):
         lmbd = self.square_lambda(self.x_n)
         while not 0.5 * lmbd <= self.e and self.iteration < 1000:

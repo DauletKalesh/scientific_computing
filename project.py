@@ -4,7 +4,6 @@ import numdifftools as nd
 from numpy.linalg import inv, det
 import matplotlib.pyplot as plt
 import inspect
-%matplotlib inline
 import warnings
 warnings.filterwarnings("ignore")
 

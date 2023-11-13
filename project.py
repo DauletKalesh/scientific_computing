@@ -73,7 +73,7 @@ class Newton_method:
                             ).split(']')
                         ).split('**')
                     ).split('*')
-                ).split('x0')) + '}$'
+                ).split('x0')) + '$'
             ax.grid()
             ax.plot(np.linspace(-3,3,100), self.function([np.linspace(-3,3,100)]))
             ax.plot(self.x[-1], self.function(self.x[-1]), 'o')
@@ -91,7 +91,7 @@ class Newton_method:
                             ).split(']')
                         ).split('**')
                     ).split('*')
-                ) + '}$'
+                ) + '$'
 
             ax = plt.axes(projection = '3d')
             ax.grid()
@@ -111,7 +111,9 @@ class Newton_method:
             fig.show()
 
 if __name__=="__main__":
-    Newton_method(
+    solution = Newton_method(
         function = lambda x: sin(x[0]) + x[0]**4, 
         x_n = np.array([1])
     )
+    solution.plot()
+    plt.show()

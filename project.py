@@ -19,6 +19,12 @@ class Newton_method:
 
     hessian = lambda self, x_n: nd.Hessian(self.function)(x_n)
 
+    def inverse(self, x_n):
+        try:
+            return inv(self.hessian(x_n)) if len(x_n)!=1 else 1/self.hessian(x_n)[0]
+        except:
+            return inv(self.hessian(x_n) + np.identity(x_n.size)) if len(x_n)!=1 else 1/self.hessian(x_n)[0]
+
     def method(self):
         lmbd = self.square_lambda(self.x_n)
         while not 0.5 * lmbd <= self.e and self.iteration < 1000:

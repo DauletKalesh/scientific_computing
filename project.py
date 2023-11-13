@@ -51,6 +51,27 @@ class Newton_method:
             self.t = self.init_t
             self.x.append(self.x_n)
         self.x = np.array(self.x)
+    
+    def plot(self):
+        if self.x_n.size ==1:
+            fig, ax = plt.subplots(figsize=(8, 6))
+            title = '$\ f(x)=' + 'x'.join(
+            ''.join(
+                '^'.join(
+                    ''.join(
+                        ''.join(
+                            inspect.getsource(self.function).split(': ')[1].split(',')[0].split('[')
+                            ).split(']')
+                        ).split('**')
+                    ).split('*')
+                ).split('x0')) + '}$'
+            ax.grid()
+            ax.plot(np.linspace(-3,3,100), self.function([np.linspace(-3,3,100)]))
+            ax.plot(self.x[-1], self.function(self.x[-1]), 'o')
+            for i in 'xy':
+                exec(f"ax.set_{i}label('$\ {i.upper()}  axis$')")
+            ax.set_title(title, fontsize=18)
+            fig.show()
 
 if __name__=="__main__":
     Newton_method(

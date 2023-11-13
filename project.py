@@ -3,6 +3,7 @@ from numpy import *
 import numdifftools as nd
 from numpy.linalg import inv, det
 import matplotlib.pyplot as plt
+import pandas as pd
 import inspect
 import warnings
 warnings.filterwarnings("ignore")
@@ -61,6 +62,15 @@ class Newton_method:
         print(f" After {self.iteration} iterations:")
         print(f"Solution is: x* = {self.x_n} p* = {self.function(self.x_n)}")
 
+    def test(self, exact_x):
+        df = pd.DataFrame({
+            "exact": exact_x,
+            "calculated": self.x_n,
+            "abs error": np.max(abs(self.x_n - np.array(exact_x))),
+        })
+        print('\nVerification:')
+        print(df)
+
     def plot(self):
         if self.x_n.size ==1:
             fig, ax = plt.subplots(figsize=(8, 6))
@@ -76,7 +86,9 @@ class Newton_method:
                 ).split('x0')) + '$'
             ax.grid()
             ax.plot(np.linspace(-3,3,100), self.function([np.linspace(-3,3,100)]))
-            ax.plot(self.x[-1], self.function(self.x[-1]), 'o')
+            # ax.plot(self.x[-1], self.function(self.x[-1]), 'o')
+            ax.scatter(self.x, list(map(lambda x: self.function(x), self.x)))
+            # ax.scatter(se)
             for i in 'xy':
                 exec(f"ax.set_{i}label('$\ {i.upper()}  axis$')")
             ax.set_title(title, fontsize=18)
@@ -111,9 +123,17 @@ class Newton_method:
             fig.show()
 
 if __name__=="__main__":
+    # solution = Newton_method(
+    #     function = lambda x: sin(x[0]) + x[0]**4, 
+    #     x_n = np.array([1])
+    # )
+    # solution.plot()
+    # plt.show()
+
     solution = Newton_method(
-        function = lambda x: sin(x[0]) + x[0]**4, 
-        x_n = np.array([1])
+        function = lambda x: x[0]**2 - 4, 
+        x_n = np.array([3])
     )
+    solution.test(exact_x=[0])
     solution.plot()
     plt.show()

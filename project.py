@@ -20,6 +20,18 @@ class Newton_method:
 
     hessian = lambda self, x_n: nd.Hessian(self.function)(x_n)
 
+    def method(self):
+        lmbd = self.square_lambda(self.x_n)
+        while not 0.5 * lmbd <= self.e and self.iteration < 1000:
+            self.t = self.line_searching(self.x_n, self.t)
+            delta = -self.inverse(self.x_n).dot(self.gradient(self.x_n))
+            self.x_n = self.x_n + self.t * delta
+            lmbd = self.square_lambda(self.x_n)
+            self.iteration += 1
+            print(f"{self.iteration})  t = {self.t}  x = {self.x_n}  f(x) = {self.function(self.x_n)} ")
+            self.t = self.init_t
+            self.x.append(self.x_n)
+        self.x = np.array(self.x)
 
 if __name__=="__main__":
     Newton_method(

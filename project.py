@@ -13,8 +13,10 @@ class Newton_method:
         self.x_n = x_n
         self.init_t = t
         self.t = t
+        self.iteration = 0
         self.e = e
         self.x = [self.x_n]
+        self.__str__()
 
     gradient = lambda self, x_n: nd.Gradient(self.function)(x_n)
 

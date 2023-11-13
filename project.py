@@ -72,6 +72,34 @@ class Newton_method:
                 exec(f"ax.set_{i}label('$\ {i.upper()}  axis$')")
             ax.set_title(title, fontsize=18)
             fig.show()
+        elif self.x_n.size == 2:
+            fig, ax = plt.subplots(figsize=(8, 6))
+            title = '$\ f(x)=' + ''.join(
+                '^'.join(
+                    ''.join(
+                        '_'.join(
+                            inspect.getsource(self.function).split(': ')[1].split(',')[0].split('[')
+                            ).split(']')
+                        ).split('**')
+                    ).split('*')
+                ) + '}$'
+
+            ax = plt.axes(projection = '3d')
+            ax.grid()
+            a = b = np.linspace(-3,3,100)
+            a, b = np.meshgrid(a, b)
+            f = self.function([a, b])
+            ax.plot_surface(a, b, f, cmap='viridis',edgecolor='green')
+            ax.plot_surface(
+                self.x.T[0], self.x.T[1],
+                self.function(np.meshgrid(self.x[:,0], self.x[:,1])),
+                cmap = 'binary', edgecolor = 'red'
+            )
+            for i in 'xyz':
+                exec(f"ax.set_{i}label('$\ {i.upper()}  axis$')")
+            ax.set_title(title, fontsize=18)
+            ax.view_init(30, 35)
+            fig.show()
 
 if __name__=="__main__":
     Newton_method(

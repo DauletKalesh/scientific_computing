@@ -130,17 +130,40 @@ class Newton_method:
             fig.show()
 
 if __name__=="__main__":
+    # solution = Newton_method(
+    #     function = lambda x: sin(x[0]) + x[0]**4, 
+    #     x_n = np.array([1])
+    # )
+    # solution.plot()
+    # plt.show()
+
+    # solution = Newton_method(
+    #     function = lambda x: (x[0] + 2)**2 + 3*(x[1] - 1)**2 + 1,
+    #     x_n = np.array([2, 2])
+    # )
+    # solution.plot()
+    # plt.show()
+
     solution = Newton_method(
-        function = lambda x: sin(x[0]) + x[0]**4, 
-        x_n = np.array([1])
+        function = lambda x: x[0]**2 + x[1]**2 + 2*x[1] + x[2]**2 + (x[3] + 4)**2 + (x[4] - 1)**2 + (x[5] - 3)**2,
+        x_n = np.zeros(6)
     )
-    solution.plot()
-    plt.show()
+    8
+
+    # verification
 
     # solution = Newton_method(
     #     function = lambda x: x[0]**2 - 4, 
     #     x_n = np.array([3])
     # )
     # solution.test(exact_x=[0])
+    # solution.plot()
+    # plt.show()
+
+    # solution = Newton_method(
+    #     function = lambda x: x[0]**2 - 3*x[0], 
+    #     x_n = np.array([3])
+    # )
+    # solution.test(exact_x=[1.5])
     # solution.plot()
     # plt.show()

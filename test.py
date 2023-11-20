@@ -7,8 +7,8 @@ class TestNewtonMethod(unittest.TestCase):
         self.tolerance = 1e-2  # Tolerance level for floating point comparison
 
     def assertArrayAlmostEqual(self, calculated_solution, expected_solution, tol):
-        
-        assert abs(calculated_solution - expected_solution) <= tol
+        print("Relative error:", result:=abs(calculated_solution - expected_solution))
+        assert result <= tol
 
     def test_case_1(self):
         # Simple quadratic function: f(x) = (x - 5)^2

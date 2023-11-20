@@ -55,7 +55,7 @@ class Newton_method:
             # lmbd = self.square_lambda(self.x_n)
             
             self.iteration += 1
-            print(f"{self.iteration})  t = {self.t}  x = {self.x_n}  f(x) = {self.function(self.x_n)} ")
+            # print(f"{self.iteration})  t = {self.t}  x = {self.x_n}  f(x) = {self.function(self.x_n)} ")
             
             self.t = self.init_t
             self.x.append(self.x_n)
